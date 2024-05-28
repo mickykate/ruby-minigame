@@ -10,7 +10,7 @@ def janken  #じゃんけんの実装
   puts "[0]グー\n[1]チョキ\n[2]パー\n[3]戦わない"
   
   player_hand = gets.to_i
-  program_hand = rand(4)
+  program_hand = rand(3)
   puts "ホイ！"
   puts "---------------"
 
@@ -32,15 +32,15 @@ end
     puts "ショ！"
     return true
   elsif(player_hand == 0 && program_hand == 1)|| (player_hand == 1 && program_hand == 2)|| (player_hand == 2 && program_hand == 0)
-    puts "あなたの#{@win}"
+    puts "あなたは#{@win}ました"
     return false #attimuite_hoiメソッドを呼び出す
+    attimuite_hoi
   else (player_hand == 0 && program_hand == 2)|| (player_hand == 1 && program_hand == 0)|| (player_hand == 2 && program_hand == 1)
-    puts "あなたの#{@lose}"
+    puts "あなたは#{@lose}ました"
     return false #attimuite_hoiメソッドを呼びだす
+    attimuite_hoi
   end
 end
-
-MiniGame.new.janken
 
 #あいこはじゃんけん繰り返し、勝ちまたは負けはあっち向いてホイに進むようにする
 def attimuite_hoi #あっち向いてホイの処理
@@ -56,13 +56,13 @@ def attimuite_hoi #あっち向いてホイの処理
   puts "あなた:#{attimuite_hoi[player_direction]}, あいて:#{attimuite_hoi[program_direction]}"
 
   if(player_direction == program_direction)
-    puts "#{@win}"
+    puts "あなたの#{@win}です"
     return false
   elsif
-    puts "#{@lose}"
+    puts "あなたの#{@lose}です"
     return false
   else
-    puts "#{@draw}"
+    puts "#{@draw}です。もう一度..."
     return true
   end
  end
@@ -74,10 +74,8 @@ while next_game
   next_game = MiniGame.new.janken
 end
 
-next_game = false
+next2_game = true
 
-while next_game
-  next_game = MiniGame.new.attimuite_hoi
+while next2_game
+  next2_game = MiniGame.new.attimuite_hoi
 end
-
-
