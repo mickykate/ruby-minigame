@@ -10,13 +10,18 @@ def janken  #じゃんけんの実装
   puts "[0]グー\n[1]チョキ\n[2]パー\n[3]戦わない"
   
   player_hand = gets.to_i
-  program_hand = rand(3)
+  program_hand = rand(4)
   puts "ホイ！"
   puts "---------------"
 
 if player_hand > 3
   puts "入力された値が無効です。0-3の数字を入力してください。"
   return true
+end
+
+if player_hand == 3
+  puts "ゲームを終了します"
+  exit
 end
 
   jankens = ["グー", "チョキ","パー","戦わない"]
@@ -31,7 +36,6 @@ end
     return false #attimuite_hoiメソッドを呼び出す
   else (player_hand == 0 && program_hand == 2)|| (player_hand == 1 && program_hand == 0)|| (player_hand == 2 && program_hand == 1)
     puts "あなたの#{@lose}"
-    attimuite_hoi
     return false #attimuite_hoiメソッドを呼びだす
   end
 end
@@ -76,4 +80,4 @@ while next_game
   next_game = MiniGame.new.attimuite_hoi
 end
 
- 
+
