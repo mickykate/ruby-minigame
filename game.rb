@@ -1,3 +1,4 @@
+require "csv"
 puts "最初はグーじゃんけん・・・・" #あいこはじゃんけん繰り返し、勝ちまたは負けはあっち向いてホイに進むようにする
 class MiniGame
   $case_pattern = nil
@@ -28,17 +29,18 @@ end
   jankens = ["グー", "チョキ","パー","戦わない"]
   puts "あなたは#{jankens[player_hand]}を出しました\n相手は#{jankens[program_hand]}を出しました"
   puts "---------------"
-
   
   if(player_hand == program_hand)
     puts "#{@draw}で..."
     return true
   elsif(player_hand == 0 && program_hand == 1)|| (player_hand == 1 && program_hand == 2)|| (player_hand == 2 && program_hand == 0)
-    return false #attimuite_hoiメソッドを呼び出す 2回目はなぜかattimuite_hoiにいこうできない。確認中
-    attimuite_hoi
+    return false #attimuite_hoiメソッドを呼び出す
+    $case_pattern = "win"
+    return attimuite_hoi
   else(player_hand == 0 && program_hand == 2)|| (player_hand == 1 && program_hand == 0)|| (player_hand == 2 && program_hand == 1)
-    return false #attimuite_hoiメソッドを呼びだす　　2回目はなぜかattimuite_hoiにいこうできない。確認中
-    attimuite_hoi
+    return false #attimuite_hoiメソッドを呼びだす
+    $case_pattern = "lose"
+    return attimuite_hoi
   end
 end
 
@@ -55,25 +57,43 @@ def attimuite_hoi #あっち向いてホイの処理
   attimuite_hoi = ["上", "下", "右", "左"]
   puts "あなた:#{attimuite_hoi[player_direction]}, あいて:#{attimuite_hoi[program_direction]}"
 
-  if player_direction == program_direction #試行錯誤中　
-     puts "あなたの#{@win}です"　　　　　　　　　　　#じゃんけん：勝ち、あっち向いてホイ：同じ方向を向く→勝ち　　じゃんけん：負け、あっち向いてホイ：同じ方向を向く→負け　としたい。
+  if $case_pattern == "win"
+  case
+  when (player_direction == program_direction) #同じ方向を向いたら、勝ち
+     puts "あなたの#{@win}です"
      puts "---------------"
-     return false
      exit
   else
     puts "引き分け。ジャンケンを再開"
     puts "---------------"
     puts "じゃんけん..."
-    MiniGame.new.janken
+    return true
   end
 end
 
+  if $case_pattern == "lose"
+  case
+  when (player_direction == program_direction) #同じ方向を向いたら、負け
+     puts "あなたの#{@lose}です"
+     puts "---------------"
+     exit
+  else
+    puts "引き分け。ジャンケンを再開"
+    puts "---------------"
+    puts "じゃんけん..."
+    return true
+  end
+end
+end
+
+miniGame = MiniGame.new()
+miniGame.janken
+
 next_game = true
 
-while next_game
-  next_game = MiniGame.new.janken
+while next_game do
+  next_game = miniGame.janken
 end
 
-MiniGame.new.attimuite_hoi
+miniGame.attimuite_hoi
 end
-
