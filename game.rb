@@ -36,11 +36,11 @@ end
   elsif(player_hand == 0 && program_hand == 1)|| (player_hand == 1 && program_hand == 2)|| (player_hand == 2 && program_hand == 0)
     return false #attimuite_hoiメソッドを呼び出す
     $case_pattern = "win"
-    return attimuite_hoi
+    attimuite_hoi
   else(player_hand == 0 && program_hand == 2)|| (player_hand == 1 && program_hand == 0)|| (player_hand == 2 && program_hand == 1)
     return false #attimuite_hoiメソッドを呼びだす
     $case_pattern = "lose"
-    return attimuite_hoi
+    attimuite_hoi
   end
 end
 
@@ -57,23 +57,11 @@ def attimuite_hoi #あっち向いてホイの処理
   attimuite_hoi = ["上", "下", "右", "左"]
   puts "あなた:#{attimuite_hoi[player_direction]}, あいて:#{attimuite_hoi[program_direction]}"
 
-  if $case_pattern == "win"
-  case
-  when (player_direction == program_direction) #同じ方向を向いたら、勝ち
+  if $case_pattern == "win" && player_direction == program_direction #同じ方向を向いたら、勝ち  
      puts "あなたの#{@win}です"
      puts "---------------"
      exit
-  else
-    puts "引き分け。ジャンケンを再開"
-    puts "---------------"
-    puts "じゃんけん..."
-    return true
-  end
-end
-
-  if $case_pattern == "lose"
-  case
-  when (player_direction == program_direction) #同じ方向を向いたら、負け
+  elsif $case_pattern = "lose" && player_direction == program_direction
      puts "あなたの#{@lose}です"
      puts "---------------"
      exit
@@ -84,16 +72,14 @@ end
     return true
   end
 end
-end
 
 miniGame = MiniGame.new()
-miniGame.janken
-
 next_game = true
 
-while next_game do
+while next_game
   next_game = miniGame.janken
 end
 
 miniGame.attimuite_hoi
 end
+
