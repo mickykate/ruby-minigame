@@ -34,13 +34,11 @@ end
     puts "#{@draw}で..."
     return true
   elsif(player_hand == 0 && program_hand == 1)|| (player_hand == 1 && program_hand == 2)|| (player_hand == 2 && program_hand == 0)
-    return false #attimuite_hoiメソッドを呼び出す
     $case_pattern = "win"
-    attimuite_hoi
+    attimuite_hoi #attimuite_hoiメソッドを呼び出す
   else(player_hand == 0 && program_hand == 2)|| (player_hand == 1 && program_hand == 0)|| (player_hand == 2 && program_hand == 1)
-    return false #attimuite_hoiメソッドを呼びだす
     $case_pattern = "lose"
-    attimuite_hoi
+    attimuite_hoi #attimuite_hoiメソッドを呼び出す
   end
 end
 
@@ -82,4 +80,3 @@ end
 
 miniGame.attimuite_hoi
 end
-
